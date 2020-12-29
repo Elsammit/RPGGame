@@ -1,0 +1,83 @@
+/* ゲーム画面全体のデザイン */
+.game_window {
+	width:200%;
+	height:800px;
+	background-color:black;
+	color:white;
+}
+/* メニュー */
+.game_menu {
+	width:100px;
+	border:3px solid white;
+	border-radius:6px;
+    margin-left:200px;
+    margin-top:285px;
+	padding:1em;
+	float:left;
+}
+.game_enemy {
+	width:300px;
+	text-align:center;
+    margin:1em;
+    margin-left:1em;
+    margin-top:30px;    
+	padding:1em;
+	float:left;
+}
+.enemyImg{
+    margin-left:230px;
+}
+
+.message {
+	width:500px;
+	border:3px solid white;
+	border-radius:6px;
+	margin:1em;
+	padding:1em;
+	float:left;
+}
+
+.monsmessage{
+	width:600px;
+	border:3px solid white;
+	border-radius:6px;
+	margin:1em;
+	padding:1em;
+    float:left;  
+      
+}
+
+/* メッセージのアニメーション */
+@-webkit-keyframes typing {
+	from { width: 0 }
+	to { width:100% }
+}
+span.message {
+	display:inline-block;
+	width:200%;
+	white-space:nowrap;
+	overflow:hidden;
+	-webkit-animation: typing 1s;
+}
+
+/* メニュー用 */
+.menu {
+	cursor:pointer;
+}
+.menu:before {
+	cursor:pointer;
+	content: '　';
+}
+/* メニュー選択状態 */
+.menu-active:before {
+	content: '＞';
+}
+
+.status{
+	border:3px solid white;
+	border-radius:6px;
+    margin-left:200px;
+    margin-top:5px;
+    padding:1px;
+    width: 200px;
+}

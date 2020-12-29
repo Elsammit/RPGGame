@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom'
+import Rpg from './rpg';
+import Battle from './battle';
+import map from './map';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <div>
+          <Route path='/Battle' component={Battle} />
+          <Route exact path='/Rpg' component={Rpg} />
+          <Route exact path='/' component={map} />
+        </div>
+      </BrowserRouter>
     </div>
   );
 }

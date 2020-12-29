@@ -38,6 +38,26 @@ export default class Snow extends Component  {
         };
     }
     componentDidMount(){
+        var flg = false;
+        //this.props.location.state = undefined;
+        if(this.props.location.state !== undefined){
+            flg = true;
+        }
+        if(flg === false){
+            console.log("pp:"+this.props.location.state);
+            this.setState({MoveX:0});
+            this.setState({MoveY:0});           
+        }else{
+            console.log("flg:"+flg);
+            console.log("xx:"+this.props.location.state.xx+",yy:"+this.props.location.state.yy);
+            this.setState({MoveX:this.props.location.state.xx});
+            this.setState({MoveY:this.props.location.state.yy});
+            this.props.location.state = undefined;
+            this.props.location.xx = 0;
+            this.props.location.yy = 0;
+        }
+        
+        //console.log("x:"+this.props.location.state.xx+", y:"+this.props.location.state.yy);
         document.addEventListener(
             "keydown",
             this.handleKeyDown,
@@ -52,6 +72,7 @@ export default class Snow extends Component  {
           "keydown",
           this.handleKeyDown,
         );
+        this.props.location.state = undefined;
      }
    
      handleKeyDown = (e: KeyboardEvent) => {
@@ -159,6 +180,14 @@ export default class Snow extends Component  {
         if((MoveX === map.length-1) && (MoveY === map.length-1)){
             this.setState({GoalX:100})
             this.setState({GoalY:30})
+        }
+
+        if((MoveX === 0) && (MoveY === 1)){
+            clearInterval(this.intervalId);
+            this.props.history.push({
+                pathname:'/battle',
+                state: {xx:MoveX,yy:MoveY}
+            });
         }
     }
 
