@@ -10,16 +10,13 @@ export default class Battle extends Component  {
         this.state = {
             xx:0,
             yy:0,
-            usrparam:[350,100,30,30,30,30,50],   // HP,MP,Atk,Def,SpAtk,SpDef,Speed,Lv
+            usrparam:[350,100,30,30,30,30,50],      // HP,MP,Atk,Def,SpAtk,SpDef,Speed,Lv
             enemyparam:[60,5,100,10,5,5,10,1],     // HP,MP,Atk,Def,SpAtk,SpDef,Speed,Lv
         };
     }
     componentDidMount(){
-        console.log("pp:"+this.props.location.state);
-        console.log("x:"+this.props.location.state.xx+", y:"+this.props.location.state.yy);
         this.setState({xx:this.props.location.state.xx});
         this.setState({yy:this.props.location.state.yy});
-        this.props.location.state = undefined;
 
         document.addEventListener(
             "keydown",
@@ -40,15 +37,12 @@ export default class Battle extends Component  {
         switch (e.key) {
             case "Left": // IE/Edge specific value
             case "ArrowLeft":
-                document.getElementById("game_control").value = "←";
                 break;
             case "Right": // IE/Edge specific value
             case "ArrowRight":
-                document.getElementById("game_control").value = "→";
                 break;
             case "Up": // IE/Edge specific value
             case "ArrowUp":
-                document.getElementById("game_control").value = "↑";
                 if (menu_id <= 1) {
                     this.activeMenu(5);
                 } else {
@@ -57,7 +51,6 @@ export default class Battle extends Component  {
                 break;
             case "Down": // IE/Edge specific value
             case "ArrowDown":
-                document.getElementById("game_control").value = "↓";
                 if (menu_id >= 5) {
                     this.activeMenu(1);
                 } else {
@@ -87,12 +80,11 @@ export default class Battle extends Component  {
     
     //コマンドの実行
     doCommand = (command_id) => {
-	    document.getElementById("game_control").value = "コマンド番号:" + command_id;
 	    switch (command_id) {
 		    case 1: //たたかう
 			    this.DoAttack();
                 break;
-            case 2: //たたかう
+            case 2: //まほう
 			    document.getElementById('message').innerHTML = '<span class="message">残念！  まほうを覚えていない！</span>';
                 break;
 		    case 3: //ぼうぎょ
@@ -131,14 +123,13 @@ export default class Battle extends Component  {
             console.log("enemyHP:"+enemyparam[0]);
             setTimeout(this.DoAtkEnemy, 1000);
         }
-        
     }
 
     DoAtkEnemy = () =>{
         var usrparam = this.state.usrparam.slice();
         var enemyparam = this.state.enemyparam.slice();
         var damege = enemyparam[2] - usrparam[3];      
-        document.getElementById('message').innerHTML = '<span class="message">ハナカマキリのこうげき！  '+ damege + 'のダメージ</span>';
+        document.getElementById('message').innerHTML = '<span class="message">あくまカマキリのこうげき！  '+ damege + 'のダメージ</span>';
         if(usrparam[0]-damege <=0){
             setTimeout(this.KnockDown, 1000);
         }else{
@@ -148,7 +139,7 @@ export default class Battle extends Component  {
     }
 
     KnockDown = () =>{
-        document.getElementById('message').innerHTML = '<span class="message">ハナカマキリを倒した。</span>';
+        document.getElementById('message').innerHTML = '<span class="message">あくまカマキリを倒した。</span>';
         setTimeout(this.DoEscape, 2000);
     }
 
@@ -189,21 +180,18 @@ export default class Battle extends Component  {
                     {this.statusTable()}
                 </div>
                 <div className="game_menu">
-                    <div id="menu1" class="menu">たたかう</div>
-                    <div id="menu2" class="menu">まほう</div>
-                    <div id="menu3" class="menu">ぼうぎょ</div>
-                    <div id="menu4" class="menu">どうぐ</div>
-                    <div id="menu5" class="menu">にげる</div>
+                    <div id="menu1" className="menu">たたかう</div>
+                    <div id="menu2" className="menu">まほう</div>
+                    <div id="menu3" className="menu">ぼうぎょ</div>
+                    <div id="menu4" className="menu">どうぐ</div>
+                    <div id="menu5" className="menu">にげる</div>
                 </div>
                 <div className="game_enemy">
-                    <img className="enemyImg" alt="ハナカマキリ" src={Monster} width="200px"/>
-                    <span className="monsmessage">ハナカマキリが現れた</span>
+                    <img className="enemyImg" alt="あくまカマキリ" src={Monster} width="200px"/>
+                    <span className="monsmessage">あくまカマキリが現れた</span>
                     <div id="message">
-                        <span className="message">敵が現れた</span>
+                        <span className="message">どうする？</span>
                     </div>
-                </div>
-                <div>
-                    <input type="text" id="game_control" />
                 </div>
             </div>
         )
